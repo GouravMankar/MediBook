@@ -1,4 +1,5 @@
 # MediBook Online Appointment Booking System
+
 # 1. MediBook Auth Service
 
 Authentication and authorization microservice for the MediBook healthcare platform.
@@ -60,6 +61,7 @@ Key architectural objectives include:
 ## Technologies Used
 
 ### Backend
+
 - Java 17
 - Spring Boot
 - Spring Security
@@ -68,20 +70,25 @@ Key architectural objectives include:
 - Maven
 
 ### Database
+
 - MySQL
 
 ### Authentication & Security
+
 - JWT (JSON Web Token)
 - BCrypt Password Encoder
 
 ### API Documentation
+
 - Swagger / OpenAPI
 
 ### Communication
+
 - REST APIs
 - OpenFeign Client
 
 ### DevOps & Deployment
+
 - Docker
 - Git & GitHub
 
@@ -89,7 +96,7 @@ Key architectural objectives include:
 
 ## Project Structure
 
-```text
+````text
 src/
  ├── main/
  │   ├── java/com/medibook/auth/
@@ -105,7 +112,7 @@ src/
  │   └── resources/
  │
  └── test/
-
+text````
 ---
 
 # 2. MediBook Appointment Service
@@ -239,3 +246,4 @@ src/
  └── test/
 
 ---
+````
