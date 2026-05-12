@@ -96,7 +96,7 @@ Key architectural objectives include:
 
 ## Project Structure
 
-````text
+```text
 src/
  ├── main/
  │   ├── java/com/medibook/auth/
@@ -112,7 +112,8 @@ src/
  │   └── resources/
  │
  └── test/
-text````
+```
+
 ---
 
 # 2. MediBook Appointment Service
@@ -188,6 +189,7 @@ Key architectural objectives include:
 ## Technologies Used
 
 ### Backend
+
 - Java 17
 - Spring Boot
 - Spring Data JPA
@@ -195,23 +197,29 @@ Key architectural objectives include:
 - Maven
 
 ### Database
+
 - MySQL
 
 ### Security
+
 - Spring Security
 - JWT-Based Authentication through API Gateway
 
 ### API Documentation
+
 - Swagger / OpenAPI
 
 ### Communication
+
 - REST APIs
 - OpenFeign Client
 
 ### Service Discovery
+
 - Eureka Client
 
 ### Testing
+
 - JUnit 5
 - Mockito
 - MockMvc
@@ -219,6 +227,7 @@ Key architectural objectives include:
 - JaCoCo
 
 ### DevOps & Deployment
+
 - Docker
 - Git & GitHub
 - Jenkins
@@ -244,6 +253,4 @@ src/
  │   └── resources/
  │
  └── test/
-
----
-````
+```
