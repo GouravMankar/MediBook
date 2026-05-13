@@ -1,0 +1,85 @@
+spring:
+  config:
+    import: optional:file:../.env[.properties]
+
+  application:
+    name: auth-service
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/medibook_auth_db}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:change-me-google-client-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:change-me-google-client-secret}
+            scope:
+              - email
+              - profile
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+
+          github:
+            client-id: ${GITHUB_CLIENT_ID:change-me-github-client-id}
+            client-secret: ${GITHUB_CLIENT_SECRET:change-me-github-client-secret}
+            scope:
+              - read:user
+              - user:email
+            redirect-uri: "http://localhost:8080/login/oauth2/code/github"
+
+server:
+  port: 8081
+  forward-headers-strategy: framework   # 🔥 VERY IMPORTANT (gateway fix)
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:medibook-jwt-secret-key-2026-minimum-256-bits}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}

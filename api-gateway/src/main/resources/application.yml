@@ -1,0 +1,177 @@
+spring:
+  config:
+    import: optional:file:../.env[.properties]
+
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/**,/oauth2/**,/login/oauth2/**
+
+            - id: auth-docs
+              order: -1
+              uri: http://localhost:8081
+              predicates:
+                - Path=/auth/v3/api-docs
+              filters:
+                - RewritePath=/auth/v3/api-docs, /v3/api-docs
+
+            - id: provider-service
+              uri: lb://provider-service
+              predicates:
+                - Path=/providers/**
+
+            - id: provider-docs
+              order: -1
+              uri: http://localhost:8082
+              predicates:
+                - Path=/providers/v3/api-docs
+              filters:
+                - RewritePath=/providers/v3/api-docs, /v3/api-docs
+
+            - id: schedule-service
+              uri: lb://schedule-service
+              predicates:
+                - Path=/slots/**
+
+            - id: schedule-docs
+              order: -1
+              uri: http://localhost:8083
+              predicates:
+                - Path=/slots/v3/api-docs
+              filters:
+                - RewritePath=/slots/v3/api-docs, /v3/api-docs
+
+            - id: appointment-service
+              uri: lb://appointment-service
+              predicates:
+                - Path=/appointments/**
+
+            - id: appointment-docs
+              order: -1
+              uri: http://localhost:8084
+              predicates:
+                - Path=/appointments/v3/api-docs
+              filters:
+                - RewritePath=/appointments/v3/api-docs, /v3/api-docs
+
+            - id: payment-service
+              uri: lb://payment-service
+              predicates:
+                - Path=/payments/**
+
+            - id: payment-docs
+              order: -1
+              uri: http://localhost:8085
+              predicates:
+                - Path=/payments/v3/api-docs
+              filters:
+                - RewritePath=/payments/v3/api-docs, /v3/api-docs
+
+            - id: review-service
+              uri: lb://review-service
+              predicates:
+                - Path=/reviews/**
+
+            - id: review-docs
+              order: -1
+              uri: http://localhost:8086
+              predicates:
+                - Path=/reviews/v3/api-docs
+              filters:
+                - RewritePath=/reviews/v3/api-docs, /v3/api-docs
+
+            - id: record-service
+              uri: lb://record-service
+              predicates:
+                - Path=/records/**,/reports/**
+
+            - id: record-docs
+              order: -1
+              uri: http://localhost:8088
+              predicates:
+                - Path=/records/v3/api-docs
+              filters:
+                - RewritePath=/records/v3/api-docs, /v3/api-docs
+
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/notifications/**
+
+            - id: notification-docs
+              order: -1
+              uri: http://localhost:8087
+              predicates:
+                - Path=/notifications/v3/api-docs
+              filters:
+                - RewritePath=/notifications/v3/api-docs, /v3/api-docs
+
+            - id: registry-docs
+              order: -1
+              uri: http://localhost:8761
+              predicates:
+                - Path=/registry/v3/api-docs
+              filters:
+                - RewritePath=/registry/v3/api-docs, /v3/api-docs
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:medibook-jwt-secret-key-2026-minimum-256-bits}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Auth Service
+        url: /auth/v3/api-docs
+      - name: Provider Service
+        url: /providers/v3/api-docs
+      - name: Schedule Service
+        url: /slots/v3/api-docs
+      - name: Appointment Service
+        url: /appointments/v3/api-docs
+      - name: Payment Service
+        url: /payments/v3/api-docs
+      - name: Review Service
+        url: /reviews/v3/api-docs
+      - name: Record Service
+        url: /records/v3/api-docs
+      - name: Notification Service
+        url: /notifications/v3/api-docs
+      - name: Service Registry
+        url: /registry/v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
