@@ -1335,3 +1335,277 @@ src/
  `-- test/
 ```
 ---
+# 8. MediBook Payment Service
+
+Payment and refund management microservice for the MediBook healthcare platform.
+
+This service is responsible for handling appointment payments, creating payment
+orders, storing payment transactions, verifying payment status, managing refunds,
+and supporting patient/provider dashboard payment summaries.
+
+The Payment Service works with appointment booking and cancellation workflows to
+ensure that appointment fees, successful payments, failed payments, and refunds
+are tracked consistently across the MediBook platform.
+
+---
+
+## Project Objective
+
+The Payment Service provides a centralized payment management system
+for the MediBook platform.
+
+It supports payment-related workflows for:
+
+- Patients
+- Providers/Doctors
+- Administrators
+
+The service ensures that payments, payment status updates, refund records,
+and payment history are handled in a clean and consistent way across
+the MediBook microservices ecosystem.
+
+---
+
+## Core Features
+
+- Create Payment Orders
+- Process Appointment Payments
+- Store Payment Transactions
+- Verify Payment Status
+- View Payments by Patient
+- View Payments by Provider
+- View Payment by Appointment
+- Handle Payment Success
+- Handle Payment Failure
+- Process Refunds on Appointment Cancellation
+- Track Refund Transactions
+- Dashboard Payment Summary Support
+- Razorpay Payment Gateway Integration
+- RESTful API Architecture
+- Swagger API Documentation
+- Centralized Exception Handling
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Microservice-Oriented Design
+- Separation of Payment Business Logic
+- Clean REST API Structure
+- Reusable DTO-Based Communication
+- External Payment Gateway Integration
+- Consistent Payment Status Management
+- Refund Tracking and Auditability
+- Appointment Cancellation Integration
+- Role-Aware API Gateway Integration
+- Exception Handling Standardization
+- Testable Service and Controller Layers
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+
+- MySQL
+
+### Payment Gateway
+
+- Razorpay
+
+### Security
+
+- Spring Security
+- JWT-Based Authentication through API Gateway
+- Role-Based Access Control
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+- OpenFeign Client
+
+### Service Discovery
+
+- Eureka Client
+
+### Testing
+
+- JUnit 5
+- Mockito
+- MockMvc
+- Spring Boot Test
+- JaCoCo
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- Jenkins
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Create and store payment records for appointments
+- Integrate with Razorpay for payment order creation
+- Track payment success and failure states
+- Return payment history for patients and providers
+- Support appointment-based payment lookup
+- Process refunds when appointments are cancelled
+- Maintain refund transaction information
+- Provide payment summary data for dashboards
+- Keep payment and refund records consistent with appointment status
+
+---
+
+## Important API Endpoints
+
+```text
+POST   /payments/create-order
+POST   /payments/success
+POST   /payments/failure
+POST   /payments/refund
+GET    /payments/{paymentId}
+GET    /payments/appointment/{appointmentId}
+GET    /payments/patient/{patientId}
+GET    /payments/provider/{providerId}
+GET    /payments/dashboard/patient/{patientId}
+GET    /payments/dashboard/provider/{providerId}
+```
+
+---
+
+## Payment Data
+
+Payment records include:
+
+- Payment ID
+- Appointment ID
+- Patient ID
+- Provider ID
+- Amount
+- Payment Status
+- Payment Method
+- Razorpay Order ID
+- Razorpay Payment ID
+- Transaction Date
+
+---
+
+## Refund Data
+
+Refund records include:
+
+- Refund ID
+- Payment ID
+- Appointment ID
+- Patient ID
+- Provider ID
+- Refund Amount
+- Refund Status
+- Refund Reason
+- Refund Date
+
+---
+
+## Payment Status Flow
+
+```text
+ORDER_CREATED
+   |
+   | payment completed
+   v
+SUCCESS
+```
+
+```text
+ORDER_CREATED
+   |
+   | payment failed
+   v
+FAILED
+```
+
+```text
+SUCCESS
+   |
+   | appointment cancelled
+   v
+REFUNDED
+```
+
+---
+
+## Dashboard Calculations
+
+The Payment Service supports dashboard values such as:
+
+- Total Amount Spent by Patient
+- Total Provider Earnings
+- Successful Payment Count
+- Failed Payment Count
+- Refund Count
+- Total Refund Amount
+- Recent Payment Transactions
+- Recent Refund Transactions
+
+When a patient cancels an appointment, the related amount should be removed
+from total spending/earning calculations where required and added to refund
+summary values.
+
+---
+
+## Access Control Rules
+
+```text
+PATIENT
+   - Can create payments for their own appointments
+   - Can view their own payment history
+   - Can view their own refund history
+
+PROVIDER
+   - Can view payments related to their appointments
+   - Can view provider dashboard earnings
+
+ADMIN
+   - Can monitor payment and refund records where allowed
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/payment/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
+```
