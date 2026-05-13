@@ -98,20 +98,20 @@ Key architectural objectives include:
 
 ```text
 src/
- ├── main/
- │   ├── java/com/medibook/auth/
- │   │   ├── config/
- │   │   ├── controller/
- │   │   ├── dto/
- │   │   ├── entity/
- │   │   ├── exception/
- │   │   ├── repository/
- │   │   ├── security/
- │   │   ├── service/
- │   │   └── client/
- │   └── resources/
- │
- └── test/
+ |-- main/
+ |   |-- java/com/medibook/auth/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- security/
+ |   |   |-- service/
+ |   |   `-- client/
+ |   `-- resources/
+ |
+ `-- test/
 ```
 
 ---
@@ -230,7 +230,6 @@ Key architectural objectives include:
 
 - Docker
 - Git & GitHub
-- Jenkins
 - SonarQube
 
 ---
@@ -239,18 +238,212 @@ Key architectural objectives include:
 
 ```text
 src/
- ├── main/
- │   ├── java/com/medibook/appointment/
- │   │   ├── client/
- │   │   ├── config/
- │   │   ├── controller/
- │   │   ├── dto/
- │   │   ├── entity/
- │   │   ├── exception/
- │   │   ├── repository/
- │   │   ├── service/
- │   │   └── service/impl/
- │   └── resources/
- │
- └── test/
+ |-- main/
+ |   |-- java/com/medibook/appointment/
+ |   |   |-- client/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
+```
+
+---
+
+# 3. MediBook Provider Service
+
+Provider profile management microservice for the MediBook healthcare platform.
+
+This service is responsible for creating and managing provider/doctor profiles,
+storing professional details, supporting provider search, managing availability,
+tracking verification status, and exposing provider data required by patients
+during appointment booking.
+
+The Provider Service integrates with the Auth Service to fetch user identity
+details and enrich provider responses with provider names.
+
+---
+
+## Project Objective
+
+The Provider Service provides a centralized provider profile system
+for the MediBook platform.
+
+It supports provider-related workflows for:
+
+- Patients
+- Providers/Doctors
+- Administrators
+
+The service allows patients to browse providers by specialization, search
+providers by keyword, view provider details, and check consultation information.
+It also allows providers and administrators to manage provider profile data.
+
+---
+
+## Core Features
+
+- Provider Profile Registration
+- Provider Profile Update
+- View Provider by Provider ID
+- View Provider by User ID
+- Search Providers by Keyword
+- Filter Providers by Specialization
+- View All Providers
+- Provider Availability Management
+- Provider Verification / Approval
+- Provider Rating Update
+- Consultation Fee Management
+- Clinic Name and Address Management
+- Auth Service Integration for User Details
+- DTO-Based Request and Response Handling
+- Swagger API Documentation
+- RESTful API Architecture
+- Centralized Exception Handling
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Microservice-Oriented Design
+- Separation of Provider Business Logic
+- Clean REST API Structure
+- Reusable DTO-Based Communication
+- Auth Service Integration through Feign Client
+- Consistent Provider Profile Management
+- Searchable Provider Directory
+- Role-Aware API Gateway Integration
+- Exception Handling Standardization
+- Testable Service and Controller Layers
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+
+- MySQL
+
+### Security
+
+- Spring Security
+- JWT-Based Authentication through API Gateway
+- Role-Based Access Control
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+- OpenFeign Client
+
+### Service Discovery
+
+- Eureka Client
+
+### Testing
+
+- JUnit 5
+- Mockito
+- MockMvc
+- Spring Boot Test
+- JaCoCo
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Store provider professional profile information
+- Link provider profiles with Auth Service users
+- Return provider names by fetching user data from Auth Service
+- Support public provider browsing for patients and guests
+- Allow providers/admins to update provider profile details
+- Allow admins to approve and delete provider profiles
+- Maintain provider availability and average rating information
+
+---
+
+## Important API Endpoints
+
+```text
+POST   /providers/register
+GET    /providers/{id}
+GET    /providers/user/{userId}
+PUT    /providers/{id}
+DELETE /providers/{id}
+PUT    /providers/{id}/approve
+PUT    /providers/{id}/availability
+PUT    /providers/{id}/rating
+GET    /providers/specialization/{specialization}
+GET    /providers/search?keyword=value
+GET    /providers/getall
+```
+
+---
+
+## Provider Profile Data
+
+Provider profiles include:
+
+- Provider ID
+- User ID
+- Provider Name
+- Specialization
+- Qualification
+- Experience Years
+- Bio
+- Clinic Name
+- Clinic Address
+- Consultation Fee
+- Average Rating
+- Availability Status
+- Verification Status
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/provider/
+ |   |   |-- client/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
 ```
