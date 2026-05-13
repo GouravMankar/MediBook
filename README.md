@@ -1609,3 +1609,209 @@ src/
  |
  `-- test/
 ```
+---
+# 9. MediBook Service Registry
+
+Service discovery microservice for the MediBook healthcare platform.
+
+This service is responsible for registering and discovering MediBook
+microservices at runtime using Netflix Eureka. It allows services such as
+Auth Service, Appointment Service, Provider Service, Schedule Service,
+Payment Service, Notification Service, Record Service, Review Service,
+and API Gateway to locate and communicate with each other dynamically.
+
+The Service Registry acts as the central discovery server for the MediBook
+microservices ecosystem.
+
+---
+
+## Project Objective
+
+The Service Registry provides centralized service discovery
+for all MediBook backend microservices.
+
+It supports discovery and registration for:
+
+- API Gateway
+- Auth Service
+- Appointment Service
+- Provider Service
+- Schedule Service
+- Payment Service
+- Notification Service
+- Record Service
+- Review Service
+
+The service ensures that microservices can register themselves, discover
+other services, and communicate without hardcoding every service URL.
+
+---
+
+## Core Features
+
+- Eureka Server Registration
+- Microservice Discovery
+- Runtime Service Lookup
+- Service Health Visibility
+- Centralized Service Registry Dashboard
+- Dynamic Service Communication Support
+- API Gateway Discovery Support
+- RESTful Microservice Architecture Support
+- Swagger API Documentation
+- Lightweight Health/Ping Endpoint
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Centralized Service Discovery
+- Microservice-Oriented Design
+- Dynamic Service Registration
+- Reduced Hardcoded Service URLs
+- API Gateway Routing Support
+- Service Availability Visibility
+- Simple and Lightweight Infrastructure Layer
+- Clean Configuration Structure
+- Easy Local Development and Testing
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Cloud Netflix Eureka Server
+- Maven
+
+### Service Discovery
+
+- Netflix Eureka Server
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+- Eureka Client Registration from Other Services
+
+### Testing
+
+- JUnit 5
+- Spring Boot Test
+- MockMvc
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- Jenkins
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Start and run the Eureka Discovery Server
+- Allow MediBook services to register themselves
+- Allow services to discover other registered services
+- Provide visibility into running service instances
+- Support API Gateway dynamic routing
+- Reduce direct dependency on hardcoded service URLs
+- Provide a simple health/ping endpoint for testing availability
+
+---
+
+## Registered MediBook Services
+
+The following services are expected to register with the Service Registry:
+
+- api-gateway
+- auth-service
+- appointment-service
+- provider-service
+- schedule-service
+- payment-service
+- notification-service
+- record-service
+- review-service
+
+---
+
+## Important URLs
+
+```text
+Eureka Dashboard:
+http://localhost:8761
+
+Service Registry Health:
+http://localhost:8761/actuator/health
+
+Swagger UI:
+http://localhost:8761/swagger-ui/index.html
+```
+
+---
+
+## Common Configuration
+
+Other services usually connect to the Service Registry using:
+
+```yaml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+```
+
+The Service Registry itself usually disables self-registration:
+
+```yaml
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+```
+
+---
+
+## Service Discovery Flow
+
+```text
+Microservice Starts
+   |
+   | registers with Eureka
+   v
+Service Registry
+   |
+   | API Gateway / Feign Client discovers service
+   v
+Service-to-Service Communication
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/registry/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   `-- ServiceRegistryApplication.java
+ |   `-- resources/
+ |
+ `-- test/
+```
+---
