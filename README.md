@@ -447,3 +447,194 @@ src/
  |
  `-- test/
 ```
+# 4. MediBook Schedule Service
+
+Provider availability and appointment slot management microservice for the MediBook healthcare platform.
+
+This service is responsible for creating provider availability slots, fetching
+available slots, blocking slots during appointment booking, and releasing slots
+when appointments are cancelled or rescheduled.
+
+The Schedule Service works closely with the Appointment Service to ensure that
+patients can only book valid and available provider time slots.
+
+---
+
+## Project Objective
+
+The Schedule Service provides a centralized scheduling system
+for provider availability in the MediBook platform.
+
+It supports schedule-related workflows for:
+
+- Providers/Doctors
+- Patients
+- Administrators
+
+The service ensures that appointment slots are created, fetched, blocked,
+and released in a clean and consistent way across the MediBook microservices
+ecosystem.
+
+---
+
+## Core Features
+
+- Create Provider Availability Slots
+- View Provider Available Slots
+- View Slots by Provider and Date
+- Block Slot During Appointment Booking
+- Release Slot on Appointment Cancellation
+- Prevent Double Booking of Slots
+- Track Slot Availability Status
+- Provider Schedule Management
+- Appointment Service Integration
+- RESTful API Architecture
+- Swagger API Documentation
+- Centralized Exception Handling
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Microservice-Oriented Design
+- Separation of Scheduling Business Logic
+- Clean REST API Structure
+- Reusable DTO-Based Communication
+- Appointment Service Integration
+- Consistent Slot Availability Management
+- Prevention of Duplicate Slot Booking
+- Role-Aware API Gateway Integration
+- Exception Handling Standardization
+- Testable Service and Controller Layers
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+
+- MySQL
+
+### Security
+
+- Spring Security
+- JWT-Based Authentication through API Gateway
+- Role-Based Access Control
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+- OpenFeign Client
+
+### Service Discovery
+
+- Eureka Client
+
+### Testing
+
+- JUnit 5
+- Mockito
+- MockMvc
+- Spring Boot Test
+- JaCoCo
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- Jenkins
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Store provider availability slot information
+- Allow providers to create and manage available slots
+- Allow patients to view available provider slots
+- Block slots when appointments are booked
+- Release slots when appointments are cancelled or rescheduled
+- Prevent patients from booking already blocked slots
+- Maintain accurate slot availability status
+
+---
+
+## Important API Endpoints
+
+```text
+POST   /schedules
+GET    /schedules/provider/{providerId}
+GET    /schedules/provider/{providerId}/date/{date}
+GET    /schedules/available/provider/{providerId}
+PUT    /schedules/{slotId}/block
+PUT    /schedules/{slotId}/release
+DELETE /schedules/{slotId}
+```
+
+---
+
+## Schedule Slot Data
+
+Schedule slots include:
+
+- Slot ID
+- Provider ID
+- Available Date
+- Start Time
+- End Time
+- Availability Status
+- Created Date
+
+---
+
+## Slot Status Flow
+
+```text
+AVAILABLE
+   |
+   | appointment booked
+   v
+BLOCKED
+   |
+   | appointment cancelled / rescheduled
+   v
+AVAILABLE
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/schedule/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
+```
