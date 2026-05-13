@@ -447,6 +447,8 @@ src/
  |
  `-- test/
 ```
+---
+
 # 4. MediBook Schedule Service
 
 Provider availability and appointment slot management microservice for the MediBook healthcare platform.
@@ -627,6 +629,232 @@ src/
  |-- main/
  |   |-- java/com/medibook/schedule/
  |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
+```
+---
+# 5. MediBook Notification Service
+
+Notification and email communication microservice for the MediBook healthcare platform.
+
+This service is responsible for sending user notifications, appointment-related
+messages, OTP emails, password reset communication, and general platform alerts
+across the MediBook microservices ecosystem.
+
+The Notification Service works with other MediBook services to deliver important
+messages to patients, providers, and administrators through email and internal
+notification records.
+
+---
+
+## Project Objective
+
+The Notification Service provides a centralized communication system
+for the MediBook platform.
+
+It supports notification workflows for:
+
+- Patients
+- Providers/Doctors
+- Administrators
+
+The service ensures that appointment updates, OTP messages, password reset
+emails, and platform notifications are delivered in a clean and consistent way
+across the MediBook microservices ecosystem.
+
+---
+
+## Core Features
+
+- Send Email Notifications
+- Send OTP Emails
+- Send Password Reset Emails
+- Send Appointment Confirmation Messages
+- Send Appointment Cancellation Messages
+- Send Appointment Status Update Messages
+- Store User Notifications
+- View Notifications by User
+- Mark Notifications as Read
+- Bulk Notification Support
+- RabbitMQ Message Consumer
+- RESTful API Architecture
+- Swagger API Documentation
+- Centralized Exception Handling
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Microservice-Oriented Design
+- Centralized Notification Handling
+- Separation of Email and Notification Logic
+- Clean REST API Structure
+- Event-Driven Communication
+- RabbitMQ-Based Message Consumption
+- Reusable DTO-Based Communication
+- Consistent Notification Delivery
+- Exception Handling Standardization
+- Testable Service and Controller Layers
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+
+- MySQL
+
+### Messaging
+
+- RabbitMQ
+- Spring AMQP
+
+### Email
+
+- Spring Mail
+- SMTP
+
+### Security
+
+- Spring Security
+- JWT-Based Authentication through API Gateway
+- Role-Based Access Control
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+- RabbitMQ Events
+
+### Service Discovery
+
+- Eureka Client
+
+### Testing
+
+- JUnit 5
+- Mockito
+- MockMvc
+- Spring Boot Test
+- JaCoCo
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- Jenkins
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Send transactional emails to MediBook users
+- Send OTP emails for verification and password reset
+- Store notification records for users
+- Provide notification history by user ID
+- Mark notifications as read after user interaction
+- Consume notification events from RabbitMQ
+- Support communication between appointment, auth, payment, and record services
+- Centralize notification delivery logic
+
+---
+
+## Important API Endpoints
+
+```text
+POST   /notifications/send
+POST   /notifications/email
+POST   /notifications/bulk
+GET    /notifications/user/{userId}
+PUT    /notifications/{notificationId}/read
+DELETE /notifications/{notificationId}
+```
+
+---
+
+## Notification Data
+
+Notifications include:
+
+- Notification ID
+- User ID
+- Recipient Email
+- Subject
+- Message
+- Notification Type
+- Read Status
+- Created Date
+
+---
+
+## Notification Flow
+
+```text
+Service Event
+   |
+   | RabbitMQ / REST API
+   v
+Notification Service
+   |
+   | Save notification record
+   v
+Database
+   |
+   | Send email when required
+   v
+User Email Inbox
+```
+
+---
+
+## Common Notification Types
+
+- OTP Verification
+- Password Reset
+- Appointment Booking
+- Appointment Cancellation
+- Appointment Reschedule
+- Appointment Completion
+- Payment Success
+- Payment Refund
+- Medical Report Added
+- General Platform Alert
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/notification/
+ |   |   |-- config/
+ |   |   |-- consumer/
  |   |   |-- controller/
  |   |   |-- dto/
  |   |   |-- entity/
