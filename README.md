@@ -561,7 +561,6 @@ Key architectural objectives include:
 
 - Docker
 - Git & GitHub
-- Jenkins
 - SonarQube
 
 ---
@@ -766,7 +765,6 @@ Key architectural objectives include:
 
 - Docker
 - Git & GitHub
-- Jenkins
 - SonarQube
 
 ---
@@ -866,3 +864,239 @@ src/
  |
  `-- test/
 ```
+---
+# MediBook Record Service
+
+Medical records and medical reports management microservice for the MediBook healthcare platform.
+
+This service is responsible for managing patient medical records, provider-created
+medical reports, diagnosis details, prescriptions, notes, and appointment-linked
+healthcare documentation across the MediBook microservices ecosystem.
+
+The Record Service allows providers to create medical reports for patients and
+allows patients to securely view their own reports and records.
+
+---
+
+## Project Objective
+
+The Record Service provides a centralized medical documentation system
+for the MediBook platform.
+
+It supports record-related workflows for:
+
+- Patients
+- Providers/Doctors
+- Administrators
+
+The service ensures that medical records and reports are stored, retrieved,
+and protected in a clean and consistent way across the MediBook microservices
+ecosystem.
+
+---
+
+## Core Features
+
+- Create Medical Records
+- View Medical Records by Patient
+- View Medical Records by Provider
+- Create Medical Reports
+- View Medical Reports by Patient
+- View Medical Reports by Provider
+- View Medical Report by Appointment
+- Store Diagnosis Information
+- Store Prescription Information
+- Store Provider Notes
+- Track Report Date
+- Appointment-Linked Medical Reports
+- Patient-Restricted Report Access
+- Provider-Restricted Report Creation
+- RESTful API Architecture
+- Swagger API Documentation
+- Centralized Exception Handling
+
+---
+
+## Architectural Goals
+
+This microservice is designed with scalability, maintainability,
+and clean architecture principles in mind.
+
+Key architectural objectives include:
+
+- Microservice-Oriented Design
+- Separation of Medical Record Business Logic
+- Clean REST API Structure
+- Secure Patient Medical Data Access
+- Provider-Based Report Creation
+- Appointment-Linked Healthcare Documentation
+- Reusable DTO-Based Communication
+- Consistent Medical Report Management
+- Exception Handling Standardization
+- Testable Service and Controller Layers
+
+---
+
+## Technologies Used
+
+### Backend
+
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+
+### Database
+
+- MySQL
+
+### Security
+
+- Spring Security
+- JWT-Based Authentication through API Gateway
+- Role-Based Access Control
+- Patient-Owned Data Access Restriction
+
+### API Documentation
+
+- Swagger / OpenAPI
+
+### Communication
+
+- REST APIs
+
+### Service Discovery
+
+- Eureka Client
+
+### Testing
+
+- JUnit 5
+- Mockito
+- MockMvc
+- Spring Boot Test
+- JaCoCo
+
+### DevOps & Deployment
+
+- Docker
+- Git & GitHub
+- Jenkins
+- SonarQube
+
+---
+
+## Main Responsibilities
+
+- Store patient medical record information
+- Store provider-created medical reports
+- Link reports with patients, providers, and appointments
+- Allow patients to view only their own reports
+- Allow providers to create reports for assigned patients
+- Maintain diagnosis, prescription, notes, and report date details
+- Provide medical documentation APIs for frontend report pages
+- Protect sensitive healthcare data through role-aware access control
+
+---
+
+## Important API Endpoints
+
+```text
+POST   /records
+GET    /records/patient/{patientId}
+GET    /records/provider/{providerId}
+GET    /records/{recordId}
+
+POST   /reports
+GET    /reports/patient/{patientId}
+GET    /reports/provider/{providerId}
+GET    /reports/appointment/{appointmentId}
+GET    /reports/{reportId}
+```
+
+---
+
+## Medical Record Data
+
+Medical records include:
+
+- Record ID
+- Patient ID
+- Provider ID
+- Appointment ID
+- Diagnosis
+- Prescription
+- Notes
+- Created Date
+- Updated Date
+
+---
+
+## Medical Report Data
+
+Medical reports include:
+
+- Report ID
+- Patient ID
+- Provider ID
+- Appointment ID
+- Diagnosis
+- Prescription
+- Notes
+- Report Date
+- Provider Name
+
+---
+
+## Medical Report Flow
+
+```text
+Appointment Completed
+   |
+   | provider creates report
+   v
+Medical Report Saved
+   |
+   | patient opens reports section
+   v
+Patient Views Own Report
+```
+
+---
+
+## Access Control Rules
+
+```text
+PATIENT
+   - Can view only their own records and reports
+
+PROVIDER
+   - Can create reports for assigned appointments/patients
+   - Can view reports related to their own patients
+
+ADMIN
+   - Can manage and monitor medical records where allowed
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+ |-- main/
+ |   |-- java/com/medibook/record/
+ |   |   |-- config/
+ |   |   |-- controller/
+ |   |   |-- dto/
+ |   |   |-- entity/
+ |   |   |-- exception/
+ |   |   |-- repository/
+ |   |   |-- service/
+ |   |   `-- service/impl/
+ |   `-- resources/
+ |
+ `-- test/
+```
+---
