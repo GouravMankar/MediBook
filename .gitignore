@@ -1,0 +1,66 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# Environment Files
+.env
+.env.*
+!.env.example
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
+.project
+.classpath
+.settings/
+.springBeans
+.sts4-cache
+.metadata/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+bin/
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+coverage/
+
+# npm
+package-lock.json
+
+# Docker
+docker-compose.override.yml
+
+# SonarQube
+.scannerwork/
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Keep Important Files
+!.gitignore
+!.env.example
