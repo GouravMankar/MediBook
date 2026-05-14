@@ -1,0 +1,112 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: Gourav
+      RABBITMQ_DEFAULT_PASS: Gourav@123
+
+  service-registry:
+    build: ./service-registry
+    container_name: service-registry
+    ports:
+      - "8761:8761"
+    env_file:
+      - .env
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+
+  provider-service:
+    build: ./provider-service
+    container_name: provider-service
+    ports:
+      - "8082:8082"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+
+  schedule-service:
+    build: ./schedule-service
+    container_name: schedule-service
+    ports:
+      - "8083:8083"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+
+  appointment-service:
+    build: ./appointment-service
+    container_name: appointment-service
+    ports:
+      - "8084:8084"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+      - rabbitmq
+
+  payment-service:
+    build: ./payment-service
+    container_name: payment-service
+    ports:
+      - "8085:8085"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+      - rabbitmq
+
+  review-service:
+    build: ./review-service
+    container_name: review-service
+    ports:
+      - "8086:8086"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    ports:
+      - "8087:8087"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+      - rabbitmq
+
+  record-service:
+    build: ./record-service
+    container_name: record-service
+    ports:
+      - "8088:8088"
+    env_file:
+      - .env
+    depends_on:
+      - service-registry
+      - rabbitmq
