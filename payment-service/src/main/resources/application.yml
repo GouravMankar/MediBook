@@ -6,9 +6,9 @@ spring:
     name: payment-service
 
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/medibook_payment_db}
-    username: ${DB_USERNAME:}
-    password: ${DB_PASSWORD:}
+    url: ${PAYMENT_DB_URL}
+    username: ${AIVEN_DB_USERNAME}
+    password: ${AIVEN_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -34,9 +34,9 @@ eureka:
       defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
+
   instance:
     prefer-ip-address: true
-
 
 razorpay:
   key-id: ${RAZORPAY_KEY_ID:}
@@ -51,6 +51,7 @@ management:
     web:
       exposure:
         include: '*'
+
   endpoint:
     health:
       show-details: always

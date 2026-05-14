@@ -6,9 +6,9 @@ spring:
     name: schedule-service
 
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/medibook_schedule_db}
-    username: ${DB_USERNAME:}
-    password: ${DB_PASSWORD:}
+    url: ${SCHEDULE_DB_URL}
+    username: ${AIVEN_DB_USERNAME}
+    password: ${AIVEN_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -19,7 +19,6 @@ spring:
       hibernate:
         format_sql: true
 
-
 server:
   port: 8083
 
@@ -29,6 +28,7 @@ eureka:
       defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
+
   instance:
     prefer-ip-address: true
 
@@ -41,6 +41,7 @@ management:
     web:
       exposure:
         include: '*'
+
   endpoint:
     health:
       show-details: always

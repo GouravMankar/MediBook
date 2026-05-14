@@ -4,11 +4,13 @@ spring:
 
   application:
     name: record-service
+
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/medibook_record_db}
-    username: ${DB_USERNAME:}
-    password: ${DB_PASSWORD:}
+    url: ${RECORD_DB_URL}
+    username: ${AIVEN_DB_USERNAME}
+    password: ${AIVEN_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,29 +18,36 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
     username: ${RABBITMQ_USERNAME:guest}
     password: ${RABBITMQ_PASSWORD:guest}
+
 server:
   port: 8088
+
 eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
+
   instance:
     prefer-ip-address: true
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+
   endpoint:
     health:
       show-details: always
