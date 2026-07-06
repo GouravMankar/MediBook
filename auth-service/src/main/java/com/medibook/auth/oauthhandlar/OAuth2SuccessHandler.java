@@ -3,6 +3,7 @@ package com.medibook.auth.oauthhandlar;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -23,6 +24,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+
+    @Value("${app.frontend-base-url}")
+    private String frontendBaseUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -68,6 +72,6 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String jwt = jwtService.generateToken(user);
 
-        response.sendRedirect("http://localhost:4200/auth/callback?token=" + jwt);
+        response.sendRedirect(frontendBaseUrl + "/auth/callback?token=" + jwt);
     }
 }

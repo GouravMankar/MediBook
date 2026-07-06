@@ -19,7 +19,8 @@ public class CorsConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:4200",
                 "http://localhost:58617",
-                "https://medi-book-frontend-chi.vercel.app"
+                "https://medi-book-frontend-chi.vercel.app",
+                "http://medibook-book-appointments.s3-website.eu-north-1.amazonaws.com"
         ));
 
      

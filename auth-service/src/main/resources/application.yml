@@ -42,7 +42,7 @@ spring:
             scope:
               - email
               - profile
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            redirect-uri: "${OAUTH2_REDIRECT_BASE_URL:http://13.60.197.51:8080}/login/oauth2/code/google"
 
           github:
             client-id: ${GITHUB_CLIENT_ID:change-me-github-client-id}
@@ -50,11 +50,14 @@ spring:
             scope:
               - read:user
               - user:email
-            redirect-uri: "http://localhost:8080/login/oauth2/code/github"
+            redirect-uri: "${OAUTH2_REDIRECT_BASE_URL:http://13.60.197.51:8080}/login/oauth2/code/github"
 
 server:
   port: 8081
   forward-headers-strategy: framework
+
+app:
+  frontend-base-url: ${FRONTEND_BASE_URL:http://medibook-book-appointments.s3-website.eu-north-1.amazonaws.com}
 
 eureka:
   client:
